@@ -1,23 +1,35 @@
 {
   "development": {
-    "username": "root",
-    "password": "root",
+    "username": "doadmin",
+    "password": "AVNS_LQ87vQoslUajA9_qEWT",
     "database": "bank",
-    "host": "127.0.0.1",
+    "host": "db-mysql-syd1-39421-do-user-13346368-0.b.db.ondigitalocean.com",
+    "logging": false,
+    "dialectOptions": {
+      "port": "25060"
+    },
     "dialect": "mysql"
   },
   "test": {
-    "username": "root",
-    "password": "root",
+    "username": "doadmin",
+    "password": "AVNS_LQ87vQoslUajA9_qEWT",
     "database": "bank",
-    "host": "127.0.0.1",
+    "host": "db-mysql-syd1-39421-do-user-13346368-0.b.db.ondigitalocean.com",
+    "logging": false,
+    "dialectOptions": {
+      "port": "25060"
+    },
     "dialect": "mysql"
   },
   "production": {
-    "username": "root",
-    "password": "root",
+    "username": "doadmin",
+    "password": "AVNS_LQ87vQoslUajA9_qEWT",
     "database": "bank",
-    "host": "127.0.0.1",
+    "host": "db-mysql-syd1-39421-do-user-13346368-0.b.db.ondigitalocean.com",
+    "logging": false,
+    "dialectOptions": {
+      "port": "25060"
+    },
     "dialect": "mysql"
   }
 }

@@ -12,6 +12,10 @@ module.exports = (sequelize, DataTypes) => {
         as: "details",
         foreignKey: "productId",
       });
+      products.belongsTo(models.banks, {
+        as: "bank",
+        foreignKey: "bankId",
+      });
       // define association here
     }
   }
@@ -19,7 +23,38 @@ module.exports = (sequelize, DataTypes) => {
     {
       name: DataTypes.STRING,
       productId: DataTypes.STRING,
-      link: DataTypes.STRING,
+      // link: DataTypes.STRING,
+      brand: {
+        type: DataTypes.STRING,
+      },
+      description: {
+        type: DataTypes.STRING,
+      },
+      isTailored: {
+        type: DataTypes.BOOLEAN,
+        defaultVaule: false,
+      },
+      productCategory: {
+        type: DataTypes.STRING,
+      },
+      effectiveFrom: {
+        type: DataTypes.STRING,
+      },
+      effectiveTo: {
+        type: DataTypes.STRING,
+      },
+      brandName: {
+        type: DataTypes.STRING,
+      },
+      applicationUri: {
+        type: DataTypes.STRING,
+      },
+      // additionalInformation: {
+      //   type: DataTypes.JSONB,
+      // },
+      bankId: {
+        type: DataTypes.INTEGER,
+      },
     },
     {
       sequelize,

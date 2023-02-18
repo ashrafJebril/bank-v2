@@ -46,6 +46,6 @@ app.get("/banks-v2/product/:id", async (req, res) => {
   res.send(result);
 });
 getData();
-app.listen(5000, "127.0.0.1", () => {
+app.listen(3030, "127.0.0.1", () => {
   console.log("Listing");
 });

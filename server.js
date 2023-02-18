@@ -14,7 +14,7 @@ getData = async () => {
   // await myController.saveProducts();
 };
 const api = require("./apis");
-api.getProducts();
+
 getProductsWithDetails = async () => {
   // return await myController.getProductsWithDetials();
 };
@@ -45,6 +45,10 @@ app.get("/banks-v2/product/:id", async (req, res) => {
   delete result.status;
   res.send(result);
 });
+app.get("/banks-v2/init", async (req,res)=>{
+  await api.getProducts();
+  res.send({message:"done"})
+})
 getData();
 app.listen(3030, "127.0.0.1", () => {
   console.log("Listing");

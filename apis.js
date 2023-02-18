@@ -35,7 +35,6 @@ class Apis {
               product.bankId = bank.dataValues.id;
               return product;
             });
-            console.log("here", list);
             await controller.creatBanksProducts(list);
             list.map(async (product) => {
               await this.getProductDetails(

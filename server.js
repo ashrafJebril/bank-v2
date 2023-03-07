@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
+const banks = require("./models").banks;
 
 app.use(
   cors({
@@ -11,8 +12,11 @@ app.use(
 const controller = require("./controller.js");
 // myController.getAllBanksProducts();
 getData = async () => {
+  await controller.create();
+
   // await myController.saveProducts();
 };
+getData();
 const api = require("./apis");
 
 getProductsWithDetails = async () => {
@@ -45,11 +49,11 @@ app.get("/banks-v2/product/:id", async (req, res) => {
   delete result.status;
   res.send(result);
 });
-app.get("/banks-v2/init", async (req,res)=>{
+app.get("/banks-v2/init", async (req, res) => {
   await api.getProducts();
-  res.send({message:"done"})
-})
-getData();
+  res.send({ message: "done" });
+});
+
 app.listen(3030, "127.0.0.1", () => {
   console.log("Listing");
 });

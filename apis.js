@@ -1,11 +1,58 @@
-const axios = require("axios");
 const controller = require("./controller");
 const products_details = require("./models").product_details;
 const products = require("./models").products;
 const fetch = (url, config) =>
   import("node-fetch").then(({ default: fetch }) => fetch(url, config));
+var requestOptions = {
+  method: "GET",
+  headers: {
+    "x-v": 3,
+    "x-min-v": 1,
+  },
+  redirect: "follow",
+};
 class Apis {
   constructor() {}
+  async bankProducts(link, id) {
+    await fetch(`${link}/banking/products`, requestOptions)
+      .then((response) => response.json()) // parse response as JSON
+      .then(async (data) => {
+        const productsData = data.data.products.map((product) => {
+          return {
+            productId: product.productId,
+            name: product.name,
+            brand: product.brand,
+            link: link,
+            description: product.description,
+            isTailored: product.isTailored,
+            productCategory: product.productCategory,
+            effectiveFrom: product.effectiveFrom,
+            effectiveTo: product.effectiveTo,
+            brandName: product.brandName,
+            applicationUri: product.applicationUri,
+            bankId: id,
+          };
+        });
+        await products.bulkCreate(productsData);
+        // const productsAfterAdded = await products.findAll();
+
+        // await this.recursive(productsAfterAdded);
+      })
+      .catch((error) => console.log("error", error));
+  }
+
+  async recursive(data) {
+    if (data.length <= 0) {
+      return;
+    }
+    const chunkedData = data.pop();
+    this.getProductDetails(
+      chunkedData._previousDataValues.productId,
+      chunkedData._previousDataValues.link
+    );
+
+    await this.recursive(data);
+  }
   async getProducts(link) {
     var requestOptions = {
       method: "GET",
@@ -24,28 +71,6 @@ class Apis {
       where: {},
       truncate: true,
     });
-    banksList.map(async (bank) => {
-      await fetch(`${bank.dataValues.link}/banking/products`, requestOptions)
-        .then((response) => response.json())
-        .then(async (result) => {
-          if (result.data && result.data.products.length) {
-            const list = result.data.products.map((product) => {
-              delete product.additionalInformation;
-              delete product.cardArt;
-              product.bankId = bank.dataValues.id;
-              return product;
-            });
-            await controller.creatBanksProducts(list);
-            list.map(async (product) => {
-              await this.getProductDetails(
-                product.productId,
-                bank.dataValues.link
-              );
-            });
-          }
-        })
-        .catch((err) => console.log(err.message));
-    });
   }
 
   async getProductDetails(id, link) {
@@ -60,7 +85,11 @@ class Apis {
     await fetch(`${link}/banking/products/${id}`, requestOptions)
       .then((response) => response.json())
       .then(async (result) => {
-        controller.createProductDetails(result.data);
+        try {
+          products_details.create(result.data);
+        } catch (error) {
+          console.log(error);
+        }
       })
       .catch((err) => console.log(err.message));
   }

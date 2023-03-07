@@ -28,7 +28,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
       },
       description: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(5000),
       },
       isTailored: {
         type: DataTypes.BOOLEAN,
@@ -41,6 +41,9 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
       },
       effectiveTo: {
+        type: DataTypes.STRING,
+      },
+      link: {
         type: DataTypes.STRING,
       },
       brandName: {

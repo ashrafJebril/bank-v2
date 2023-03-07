@@ -5,7 +5,7 @@ const { sequelize } = require("./models");
 
 const Api = require("./apis");
 const banks = [
-  // { name: "ANZ Bank", link: "https://api.anz/cds-au/v1" },
+  { name: "ANZ Bank", link: "https://api.anz/cds-au/v1" },
   {
     name: "National Australia Bank",
     link: "https://openbank.api.nab.com.au/cds-au/v1",
@@ -429,7 +429,7 @@ class Controller {
     const result = await product_details.findAll({
       where: { productId: id },
     });
-    return { status: 200, data: result };
+    return { status: 200, data: await Promise.all(result) };
   }
   catch(err) {
     return { status: 500, message: err.message };

@@ -15,8 +15,9 @@ class Apis {
   constructor() {}
   async bankProducts(link, id) {
     await fetch(`${link}/banking/products`, requestOptions)
-      .then((response) => response.json()) // parse response as JSON
+      .then((response) => response.json())
       .then(async (data) => {
+        console.log(data);
         const productsData = data.data.products.map((product) => {
           return {
             productId: product.productId,
@@ -34,9 +35,9 @@ class Apis {
           };
         });
         await products.bulkCreate(productsData);
-        // const productsAfterAdded = await products.findAll();
+        const productsAfterAdded = await products.findAll();
 
-        // await this.recursive(productsAfterAdded);
+        await this.recursive(productsAfterAdded);
       })
       .catch((error) => console.log("error", error));
   }

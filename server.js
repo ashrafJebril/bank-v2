@@ -23,7 +23,7 @@ getProductsWithDetails = async () => {
   // return await myController.getProductsWithDetials();
 };
 app.get("/banks-v2/banks", async (req, res) => {
-  const result = await controller.create();
+  const result = await controller.getAllBanks();
   res.status(result.status);
   delete result.status;
   res.send(result);

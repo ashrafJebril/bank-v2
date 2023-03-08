@@ -26,6 +26,10 @@ const banks = [
     name: "AMP",
     link: "https://api.cdr-api.amp.com.au/cds-au/v1",
   },
+  {
+    name: "Bank West",
+    link: "https://open-api.bankwest.com.au/bwpublic/cds-au/v1",
+  },
   // {
   //   name: "Suncorp Bank",
   //   link: "https://api-pub-cdr.suncorpbank.com.au/cds-au/v1",
